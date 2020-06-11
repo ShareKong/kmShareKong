@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>晓天订餐</title>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="./node_modules/qrcode/jquery.qrcode.min.js"></script>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/index.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头 -->
+        <div class="row">
+            <div class="col-sm-12 bg-primary text-white text-center pt-2 pb-2">
+                <span style="font-size: 2rem; letter-spacing: 5px;"><b>晓天订餐</b></span>
+            </div>
+            <!-- 滚动字 -->
+            <div class="col-sm-10 offset-1">
+                <marquee behavior="" direction="" class="text-primary">晓天订餐&emsp;值得信赖</marquee>
+            </div>
+        </div>
+        <!-- 餐桌 -->
+        <div class="row km-tables mt-5 text-center"  id="ewm">
+            <div class="col-sm-10 offset-1 d-flex flex-wrap">
+                <ewmtable :ewmarray="ewmarray" :tablecode="key" v-for="key in ewmarray"></ewmtable>
+            </div>
+        </div>
+    </div>
+    <!-- 餐桌模版 -->
+    <template id="table">
+        <div class="card w-50">
+            <div class="card-header bg-primary text-white">
+                <h3>{{ tablecode }}号餐桌</h3>
+            </div>
+            <div class="card-body border border-primary">
+                <div class="ewm">
+                    二维码
+                </div>
+            </div>
+        </div>
+    </template>
+    <script src="./js/vueControl.js"></script>
+</body>
+</html>
