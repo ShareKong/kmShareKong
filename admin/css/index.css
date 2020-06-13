@@ -1,28 +1,35 @@
+body {
+    background-color: rgba(244,247,250, 1);
+}
+
 .km-header ul {
     font-size: 1.3rem;
 }
-/* 头像 */
-.km-header ul li:last-child .card {
-    width: 50px;
-    height: 50px;
-}
+
 
 .km-bg-side {
     background-color: rgba(16, 73, 169, 1);
 }
 
-.km-bg-head {
-    background-color: rgba(255,158,0, 1);
-}
-
 ul {
     list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-ul>li {
+.km-header ul>li {
     margin-right: 20px;
 }
 
 ul>li:hover {
     cursor: pointer;
+}
+
+/* 左侧导航栏下拉选项样式 */
+.km-bg-side .collapse {
+    background-color: #eee;
+    transition: all 0.5s;
+}
+.km-bg-side .collapse a {
+    color: rgb(15, 49, 241);
 }
