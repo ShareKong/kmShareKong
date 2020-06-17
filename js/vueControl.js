@@ -1,49 +1,42 @@
 $(function(){
-    
-// 二维码数组
-let ewmarray = [
+// 
+function init() 
+{ 
+    getTableStatus();
+}
+
+function getTableStatus()
+{
+    $.post("./php/index.php", {
+        "flag": "tableStatus"
+    }, function (data) { 
+        if(data["res"] == 200)
+        {
+            dataConver(data["r"]);
+        }
+        else if(data["res"] == 500)
+        {
+            alert("获取失败");
+        }
+    }, "json");
+}
+
+function dataConver(data)
+{
+    let ewmarray = [];
+    for(let key in data)
     {
-        code: 1,
-        url: "./php/index.php"
-    },
-    {
-        code: 2,
-        url: "http://www.csdn.net"
-    },
-    {
-        code: 3,
-        url: "http://www.baidu.com"
-    },
-    {
-        code: 4,
-        url: "http://www.baidu.com"
-    },
-    {
-        code: 5,
-        url: "http://www.baidu.com"
-    },
-    {
-        code: 6,
-        url: "http://www.baidu.com"
+        ewmarray.push({"code": data[key][0], "url": "./index.php", "yn": data[key][1]});
     }
-]
-function ewms()
+    ewms(ewmarray);
+}
+
+function ewms(ewmarray)
 {
     let ewm = new Vue({
         el: "#ewm",
         data: {
             ewmarray
-        },
-        mounted() {
-            // axios.post("./php/index.php", {
-            //     flag: "tableStatus"
-            // })
-            // .then(function(response){
-            //     console.log(response.data.res);
-            // })
-            // .catch(function(error){
-            //     console.log(error);
-            // });
         },
         components: {
             ewmtable: {
@@ -52,23 +45,27 @@ function ewms()
                 },
                 data() {
                     return { 
-                        qrcode: 'www.baidu.com',
+                        qrcode: '',
                      }
                 },
                 template: "#table",
                 methods: {
                     enter () {
-                        $.post("./php/index.php", {
-                            "flag": "ind"
-                        }, function(data){
-                            alert("success");
-                        });
+                        // alert(this.ewmarray.yn);
+                        if(this.ewmarray.yn == 0)
+                        {
+                            alert("当前餐桌有人，请换张桌子谢谢");
+                        }
+                        else if(this.ewmarray.yn == 1)
+                        {
+                            window.location.href = "./html/choose.html";
+                        }
                     }
                 },
             }
         }
     })
-    // 
+    // 二维码生成
     const qrs = $("#ewm div[id]");
     
     ewmarray.forEach(element => {
@@ -81,14 +78,12 @@ function ewms()
             }
         }
     });
-        // alert(typeof(ewmarray[0].code));
 
 }
 
 function all()
 {
-    ewms();
-    // $("#ttt").qrcode("http://www.baidu.com");
+    init();
 }
 all();
 

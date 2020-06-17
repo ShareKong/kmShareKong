@@ -35,7 +35,7 @@
     <!-- 餐桌模版 -->
     <template id="table">
         <div class="card w-50">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header text-white" :class="ewmarray.yn == 1?'bg-primary':'bg-danger'">
                 <h3>{{ ewmarray.code }}号餐桌</h3>
             </div>
             <div class="card-body border border-primary">
