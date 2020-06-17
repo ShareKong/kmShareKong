@@ -25,7 +25,7 @@
                         <div class="km-divider"></div>
                         <p>
                             <small>欢迎</small>
-                            <span><b>空晓天</b></span>
+                            <span><b id="adminName"></b></span>
                             <small>管理员</small>
                         </p>
                         <div class="km-divider"></div>
@@ -61,75 +61,69 @@
                             <li>
                                 <ul class="d-flex align-items-center">
                                     <li><i class="fa fa-envelope-o text-primary"></i></li>
-                                    <li class="ml-4"><button class="btn btn-primary btn-sm">修改密码</button></li>
-                                    <li><button class="btn btn-primary btn-sm ml-4">退出登录&ensp;<i class="fa fa-sign-in" style="font-size: 1rem;"></i></button></li>
+                                    <li class="ml-4"><button class="btn btn-primary btn-sm" id="modigyPwdBtnStart">修改密码</button></li>
+                                    <li><button class="btn btn-primary btn-sm ml-4" id="loginOut">退出登录&ensp;<i class="fa fa-sign-in" style="font-size: 1rem;"></i></button></li>
                                 </ul>
                             </li>
                         </ul>
+                        <div class="row" style="display: none;" id="modigyPwd">
+                            <div class="col-md-4 offset-8">
+                                <div class="pb-2">
+                                    <div class="form-group">
+                                        <label for="" class="">旧密码：</label>
+                                        <input type="password" class="form-control" placeholder="请输入您的旧密码" name="pwd">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="">新密码：</label>
+                                        <input type="password" class="form-control" placeholder="请输入您的新密码" name="pwd1">
+                                        <input type="password" class="form-control mt-1" placeholder="再次确认" name="pwd2">
+                                    </div>
+                                    <button class="btn btn-info" id="modifyPwdBtn">确认修改</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- 横向导航 -->
                     <h-nav></h-nav>
                     <!-- 详细内容 -->
                     <div class="col-md-12 km-bg-white pt-3 pl-3 pr-3 pb-3 km-boxShadow-m-grey">
                         <!-- 员工 -->
-                        <emplo></emplo>
+                        <div class="emps">
+                            <h2 class="text-center">员工管理</h2>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>姓名</th>
+                                        <th>账号</th>
+                                        <th>密码</th>
+                                        <th>权限</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- 员工管理模版 -->
-    <template id="emplo">
-        <div class="table-responsive">
-            <h3 class="text-center text-primary mb-3">员工信息</h3>
-            <table class="km-emplo-table table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>序号</th>
-                        <th>姓名</th>
-                        <th>账号</th>
-                        <th>密码</th>
-                        <th>权限</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="i in 10">
-                        <td>{{ i }}</td>
-                        <td>空晓天</td>
-                        <td>km2017000{{ i }}</td>
-                        <td>******</td>
-                        <td>服务员</td>
-                        <td>
-                            <button class="btn btn-danger">开除</button>
-                            
-                            <button class="btn btn-primary">详情</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </template>
-    <!-- 菜品管理模版 -->
-    <template id="dishes">
-        <div>
-            <h3>菜品信息</h3>
-        </div>
-    </template>
     <!-- 横向导航栏模版 -->
     <template id="h-nav">
         <div class="col-md-12  km-boxShadow-m-grey km-bg-white mb-2 pt-3 pb-3 km-h-nav">
             <ul class="d-flex align-items-center">
-                <li><button class="btn btn-info">添加员工</button></li>
+                <li><button class="btn btn-info" @click="changeAddsShow()">添加员工</button></li>
                 <li>
                     <span>在职员工：</span>
-                    <span><b>10</b></span>
+                    <span><b id="stallEmplo"></b></span>
                 </li>
             </ul>
             <div class="add">
-                <adds ref="adds" :key="timer"></adds>
+                <adds ref="adds" :key="timer" v-show="isAddsShow"></adds>
             </div>
-            <div class="text-center">
+            <div class="text-center" v-show="isAddsShow">
                 <button class="btn btn-success" @click="getChild()">添加</button>
             </div>
         </div>
@@ -149,12 +143,6 @@
                         <option value="101">厨房人员</option>
                         <option value="102">服务员</option>
                     </select>
-                </div>
-                <div class="form-group">
-                    <label for="" class="control-label">操作</label>
-                    <div>
-                        <button class="btn btn-danger">删除</button>
-                    </div>
                 </div>
             </form>
         </div>
