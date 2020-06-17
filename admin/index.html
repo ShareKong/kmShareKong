@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>晓天订餐后台管理</title>
+    <title>晓天点餐后台管理</title>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
@@ -15,107 +15,150 @@
 </head>
 <body>
     <div class="container-fluid" id="all">
-        <!-- 头 -->
-        <div class="row bg-primary text-white km-header">
-            <div class="col-sm-12 pt-3 pb-2 d-flex justify-content-lg-between align-items-center">
-                <!-- 文字 -->
-                <h2>晓天订餐后台管理</h2>
-                <!-- 头部导航 -->
-                <ul class="d-flex align-items-center">
-                    <li><i class="fa fa-envelope-o"></i></li>
-                    <!-- 头像 -->
-                    <li>
-                        <km-drop-dwon></km-drop-dwon>
+        <div class="row">
+            <!-- 左侧栏 -->
+            <div class="col-sm-2 km-bg-side km-side pt-3 pb-3 text-white">
+                <ul class="d-flex align-items-sm-center flex-column">
+                    <!-- 基本信息 -->
+                    <li class="w-100 text-center">
+                        <img src="./images/touxiang.jpg" class="rounded-circle" alt="">
+                        <div class="km-divider"></div>
+                        <p>
+                            <small>欢迎</small>
+                            <span><b>空晓天</b></span>
+                            <small>管理员</small>
+                        </p>
+                        <div class="km-divider"></div>
+                    </li>
+                    <!-- 选项栏 -->
+                    <li class="w-100 km-side-function mt-3">
+                        <h5 class="text-left">功能选项</h5>
+                        <div class="km-divider"></div>
+                        <!-- 选项 -->
+                        <ul class="nav d-flex flex-column">
+                            <li>
+                                <i class="fa fa-outdent"></i>
+                                <span>员工管理</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-outdent"></i>
+                                <span>菜品管理</span>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
-        </div>
-        <!-- 主要内容 -->
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="row">
-                    <!-- 左边侧栏 -->
-                    <div class="col-sm-2 km-bg-side text-white">
-                        <ul class="text-center">
-                            <li>
-                                <div class="card bg-transparent text-white border-0">
-                                    <div class="card-body">
-                                        <a href="#employeeMa" class="text-white" data-toggle="collapse">员工管理</a>
-                                        <div id="employeeMa" class="collapse pt-2 pb-2">
-                                            <ul class="d-flex flex-column">
-                                                <a href="#">添加员工</a>
-                                                <a href="#">删除员工</a>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+            <!-- 中间内容 -->
+            <div class="col-sm-10 offset-2">
+                <div class="row km-content text-black-50">
+                    <!-- 头 -->
+                    <div class="col-md-12 km-head km-boxShadow-m-grey mb-3">
+                        <ul class="d-flex justify-content-between pt-3 pb-3 mr-3 ml-3 align-items-center">
+                            <li class="text-primary">
+                                <h4 class="mb-0">晓天点餐后台管理</h4>
                             </li>
+                            <!-- 消息 -->
                             <li>
-                                <div class="card bg-transparent text-white border-0">
-                                    <div class="card-body">
-                                        <a href="#dishesMa" class="text-white" data-toggle="collapse">菜品管理</a>
-                                        <div id="dishesMa" class="collapse pt-2 pb-2">
-                                            <ul class="d-flex flex-column">
-                                                <a href="#">添加菜品</a>
-                                                <a href="#">删除菜品</a>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="card bg-transparent text-white border-0">
-                                    <div class="card-body">
-                                        <a href="#orderMa" class="text-white" data-toggle="collapse">订单管理</a>
-                                        <!-- <div id="orderMa" class="collapse pt-2 pb-2">
-                                            <ul class="d-flex flex-column">
-                                                <a href="#">查看订单</a>
-                                                <a href="#">删除菜品</a>
-                                            </ul>
-                                        </div> -->
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="card bg-transparent text-white border-0">
-                                    <div class="card-body">
-                                        <a href="#annoMa" class="text-white" data-toggle="collapse">公告管理</a>
-                                        <div id="annoMa" class="collapse pt-2 pb-2">
-                                            <ul class="d-flex flex-column">
-                                                <a href="#">查看公告</a>
-                                                <a href="#">发布公告</a>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <ul class="d-flex align-items-center">
+                                    <li><i class="fa fa-envelope-o text-primary"></i></li>
+                                    <li class="ml-4"><button class="btn btn-primary btn-sm">修改密码</button></li>
+                                    <li><button class="btn btn-primary btn-sm ml-4">退出登录&ensp;<i class="fa fa-sign-in" style="font-size: 1rem;"></i></button></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
-                    <!-- 中间主要显示内容 -->
-                    <div class="col-sm-10">
-                        <iframe src="" frameborder="0"></iframe>
+                    <!-- 横向导航 -->
+                    <h-nav></h-nav>
+                    <!-- 详细内容 -->
+                    <div class="col-md-12 km-bg-white pt-3 pl-3 pr-3 pb-3 km-boxShadow-m-grey">
+                        <!-- 员工 -->
+                        <emplo></emplo>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
-    <!-- 头像模板 -->
-    <template id="kmDropDwon">
-        <div class="card border-0 bg-transparent">
-            <div class="card-body p-0">
-                <div class="dropdown dropright">
-                    <a href="" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">欢迎管理员</a>
-                    <div class="dropdown-menu pb-0 text-center">
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">忘记密码</a>
-                        <a href="#" class="dropdown-item btn-danger active">退出登录</a>
-                    </div>
-                </div>
+    <!-- 员工管理模版 -->
+    <template id="emplo">
+        <div class="table-responsive">
+            <h3 class="text-center text-primary mb-3">员工信息</h3>
+            <table class="km-emplo-table table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>姓名</th>
+                        <th>账号</th>
+                        <th>密码</th>
+                        <th>权限</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="i in 10">
+                        <td>{{ i }}</td>
+                        <td>空晓天</td>
+                        <td>km2017000{{ i }}</td>
+                        <td>******</td>
+                        <td>服务员</td>
+                        <td>
+                            <button class="btn btn-danger">开除</button>
+                            
+                            <button class="btn btn-primary">详情</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+    <!-- 菜品管理模版 -->
+    <template id="dishes">
+        <div>
+            <h3>菜品信息</h3>
+        </div>
+    </template>
+    <!-- 横向导航栏模版 -->
+    <template id="h-nav">
+        <div class="col-md-12  km-boxShadow-m-grey km-bg-white mb-2 pt-3 pb-3 km-h-nav">
+            <ul class="d-flex align-items-center">
+                <li><button class="btn btn-info">添加员工</button></li>
+                <li>
+                    <span>在职员工：</span>
+                    <span><b>10</b></span>
+                </li>
+            </ul>
+            <div class="add">
+                <adds ref="adds" :key="timer"></adds>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-success" @click="getChild()">添加</button>
             </div>
         </div>
     </template>
-
+    <!-- 添加员工模版 -->
+    <template id="add">
+        <div>
+            <form action="" class="d-flex mt-3">
+                <div class="form-group">
+                    <label for="" class="control-label">姓名：</label>
+                    <input type="text" class="form-control" v-model="name">
+                </div>
+                <div class="form-group">
+                    <label for="" class="control-label">权限：</label>
+                    <select name="" id="" class="form-control" v-model="permission">
+                        <option value="manage">管理员</option>
+                        <option value="101">厨房人员</option>
+                        <option value="102">服务员</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="" class="control-label">操作</label>
+                    <div>
+                        <button class="btn btn-danger">删除</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </template>
     <script src="./js/vueControl.js"></script>
 </body>
 </html>

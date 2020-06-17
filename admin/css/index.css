@@ -1,14 +1,9 @@
+* {
+    /* border: 1px blue solid; */
+}
+
 body {
-    background-color: rgba(244,247,250, 1);
-}
-
-.km-header ul {
-    font-size: 1.3rem;
-}
-
-
-.km-bg-side {
-    background-color: rgba(16, 73, 169, 1);
+    background-color: rgba(241,242,247, 1);
 }
 
 ul {
@@ -17,19 +12,91 @@ ul {
     margin: 0;
 }
 
-.km-header ul>li {
-    margin-right: 20px;
-}
-
 ul>li:hover {
     cursor: pointer;
 }
 
-/* 左侧导航栏下拉选项样式 */
-.km-bg-side .collapse {
-    background-color: #eee;
-    transition: all 0.5s;
+.km-divider {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(146, 144, 144);
+    box-shadow: 0 0 10px 1px rgb(192, 190, 190);
 }
-.km-bg-side .collapse a {
-    color: rgb(15, 49, 241);
+
+/* 左侧栏 */
+.km-side {
+    /* height: 722px; */
+}
+
+.km-side ul li img {
+    width: 50px;
+    height: 50px;
+}
+
+.km-bg-side {
+    position: fixed;
+    background-color: rgba(39,44,51, 1);
+}
+
+.km-side-function h1,
+h2,
+h3,
+h4,
+h5 {
+    color: rgb(148,150,161);  
+}
+
+.km-side-function ul {
+    color: rgb(184, 184, 189);
+}
+
+.km-side-function ul li {
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+.km-side-function ul li i {
+    margin-right: 10px;
+    font-size: 0.8rem;
+}
+
+.km-side-function ul li:first-child {
+    margin-top: 0px;
+}
+
+.km-side-function ul li:hover {
+    color: white;
+}
+
+/* 中间内容 */
+.km-content {
+    color: black;
+}
+
+.km-content .km-head {
+    background-color: white;
+}
+
+.km-boxShadow-m-grey {
+    box-shadow: 0 1px 5px 0px rgb(218, 214, 214);
+}
+
+.km-head i {
+    font-size: 1.3rem;
+}
+
+.km-bg-white {
+    background-color: white;
+}
+
+/* 中间横向导航栏 */
+.km-h-nav ul li {
+    margin-right: 30px;
+}
+
+.d-flex .form-group {
+    margin-right: 20px;
 }
