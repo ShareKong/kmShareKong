@@ -21,5 +21,17 @@ if($flag == "tableStatus")
     $result = null;
     $conn = null;
 }
+// 获取菜品分类
+if($flag == "getMenuCategory")
+{
+    include("./conn.php");
+    $sql = "select * from `category`";
+    $result = $conn->prepare($sql);
+    $result->execute();
+    $res = $result->fetchAll(PDO::FETCH_NUM);
+    echo(json_encode(array("res"=>200, "r"=>$res)));
+    $result = null;
+    $conn = null;
+}
 
 ?>
