@@ -3,6 +3,10 @@ $(function(){
 function init() 
 { 
     getTableStatus();
+    const t_time = 5;
+    let getSever = setInterval(function(){
+        getTableStatus();
+    }, 1000 * t_time);
 }
 
 function getTableStatus()
@@ -73,6 +77,7 @@ function ewms(ewmarray)
         {
             if(qrs.eq(i).attr("id") == String(element.code))
             {
+                qrs.eq(i).text("");
                 qrs.eq(i).qrcode(element.url + "?" + element.code);
                 break;
             }
