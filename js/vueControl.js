@@ -26,7 +26,7 @@ function dataConver(data)
     let ewmarray = [];
     for(let key in data)
     {
-        ewmarray.push({"code": data[key][0], "url": "./index.php", "yn": data[key][1]});
+        ewmarray.push({"code": data[key][0], "url": "http://47.95.210.129/xiaotianOrderFood/php/index.php", "yn": data[key][1]});
     }
     ewms(ewmarray);
 }
@@ -58,7 +58,7 @@ function ewms(ewmarray)
                         }
                         else if(this.ewmarray.yn == 1)
                         {
-                            window.location.href = "./html/choose.html";
+                            window.location.href = "./html/choose.html?" + this.ewmarray.code;
                         }
                     }
                 },

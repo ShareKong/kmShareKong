@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <!-- <script src="../node_modules/vue/dist/vue.js"></script> -->
     <link rel="stylesheet" href="../css/choose.css">
 </head>
 <body>
     <div class="km-fixed-bg"></div>
-    <div class="container">
+    <div class="container" id="app">
         <!-- 头 -->
         <div class="row bg-white km-shadow" id="head-text">
             <div class="col-12 pt-2 pb-2">
@@ -27,9 +28,45 @@
                 </ul>
             </div>
         </div>
+        <!-- 菜的显示 -->
+        <div class="row mt-4 km-shadow">
+            <div class="col-12 pt-3 pb-3 km-food-show">
+                <!-- <div class="km-panel">
+                    <div class="km-panel-head">
+                        <img src="../imgs/menus/bcdft.jpg" alt="">
+                    </div>
+                    <div class="km-panel-body">
+                        <div class="km-panel-body-title">白菜豆腐汤</div>
+                        <div class="km-panel-body-price">19</div>
+                        <div class="km-panel-body-content">
+                            
+                        </div>
+                    </div>
+                    <div class="km-panel-footer">
+                        <div>
+                            <button class="btn btn-info">-</button><input type="text" value="0"><button class="btn btn-info">+</button>
+                        </div>
+                        <button class="btn btn-info">加入菜单</button>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
 
     </div>
-    
+    <!-- 提交订单 -->
+    <div class="km-shadow" id="submitOrder">
+        <div class="">
+            <div>
+                <span>总价格：</span>
+                <span id="total">0</span>
+                <span>元</span>
+            </div>
+            <div>
+                <button class="btn btn-danger">提交订单</button>
+            </div>
+        </div>
+    </div>
     <script src="../js/choose.js"></script>
 </body>
 </html>

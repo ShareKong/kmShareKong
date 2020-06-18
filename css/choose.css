@@ -2,8 +2,13 @@
     color: gray;
 }
 
+#app {
+    margin-bottom: 60px;
+}
+
 body {
     background-color: rgb(241,242,247);
+    transform: none;
 }
 
 .km-fixed-bg {
@@ -62,4 +67,121 @@ ul {
 #menuCategory li:hover {
     cursor: pointer;
     background: rgb(235, 229, 229);
+}
+
+/* 菜的显示 */
+.km-food-show {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.km-panel {
+    width: 300px;
+    /* height: 300px; */
+    background-color: white;
+    box-shadow: 0 0 10px 1px gray;
+    /* margin-right: 20px; */
+    margin-top: 10px;
+}
+
+.km-panel .km-panel-head {
+    width: 100%;
+}
+
+.km-panel .km-panel-head img {
+    width: 100%;
+}
+
+.km-panel .km-panel-body {
+    position: relative;
+    padding: 10px;
+    height: 200px;
+}
+
+.km-panel .km-panel-body .km-panel-body-title {
+    width: 65%;
+    padding-top: 10px;
+    font-size: 1.7em;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    /* padding-top: 10px; */
+    /* background-color: red; */
+}
+
+.km-panel .km-panel-body .km-panel-body-price {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: rgb(224, 31, 31);
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.km-panel .km-panel-body .km-panel-body-price::before {
+    content: "￥";
+}
+
+.km-panel .km-panel-body .km-panel-body-content {
+    margin-top: 20px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.km-panel .km-panel-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(202, 200, 200);
+}
+
+.km-panel .km-panel-footer input {
+    width: 40px;
+    height: 25px;
+    border: none;
+    padding-left: 5px;
+}
+
+.km-panel .km-panel-footer>div {
+    display: flex;
+    vertical-align: middle;
+    /* background: red; */
+}
+
+.km-panel .km-panel-footer>div button {
+    height: 25px;
+    line-height: 5px;
+}
+
+/* 提交订单 */
+#submitOrder {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 10px;
+    background-color: white;
+}
+
+#submitOrder>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#submitOrder>div div:first-child {
+    margin-right: 20px;
+}
+
+#total {
+    font-size: 2em;
+    color: rgb(224,31,31);
+    font-weight: 600;
+}
+
+#total::before {
+    content: "￥";
 }
