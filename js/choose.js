@@ -148,6 +148,11 @@ function submitOrder(order)
             alert("下单成功");
             window.location.href = "./orderDe.html?" + data["orderNumber"];
         }
+        else if(data["res"] == 550)
+        {
+            alert("该餐桌已被下单，请换桌谢谢");
+            window.location.href = "../index.html";
+        }
         else
         {
             alert("下单失败");

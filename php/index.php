@@ -80,35 +80,47 @@ if($flag == "submitOrder")
     
     try {
         $conn->beginTransaction();
-        // 将该餐桌改变状态
-        $sql3 = "update `table` set tableEmpty=0 where tableID=$tableID";
-        $conn->query($sql3);
-        // 插入订单信息
-        $sql = "insert into `order`(orderNumber, tableID, orderTime, orderPrice, orderFinish) values('$orderNumber', '$tableID', '$orderTime', $orderTotal, '$orderFinish')";
-        $conn->query($sql);
-        // 订单详细插入
-        for($i = 0; $i < count($orderData) - 2; $i ++)
+        // 判断当前餐桌是否已经被占用
+        $sql4 = "select tableEmpty from `table` where tableID=$tableID";
+        $res4 = $conn->query($sql4);
+        $rs4 = $res4->fetch(PDO::FETCH_NUM);
+        // print_r($rs4[0]);
+        if($rs4[0])
         {
-            /// 根据菜名获取到 id
-            $mName = $orderData[$i]['name'];
-            $mNumber = $orderData[$i]['number'];
-            // $sql1 = "select menuID from `menu` where menuName=$mName";
-            // $result1 = $conn->query($sql1);
-            $sql1 = "select menuID from `menu` where menuName=?";
-            $result1 = $conn->prepare($sql1);
-            $result1->bindValue(1, $mName);
-            $result1->execute();
-            // $res1 = $conn->fetchAll(PDO::FETCH_NUM);
-            $res1 = $result1->fetchAll(PDO::FETCH_NUM);
-            // print_r($res1[0][0]);
-            $menuID = $res1[0][0];
-            $menuFinish = 0;
-            // /// 插入订单详细
-            $sql2 = "insert into `orderdetail`(orderNumber, menuID, menuQuantity, menuFinish) values('$orderNumber', '$menuID', '$mNumber', '$menuFinish')";
-            $conn->query($sql2);
+            // 将该餐桌改变状态
+            $sql3 = "update `table` set tableEmpty=0 where tableID=$tableID";
+            $conn->query($sql3);
+            // 插入订单信息
+            $sql = "insert into `order`(orderNumber, tableID, orderTime, orderPrice, orderFinish) values('$orderNumber', '$tableID', '$orderTime', $orderTotal, '$orderFinish')";
+            $conn->query($sql);
+            // 订单详细插入
+            for($i = 0; $i < count($orderData) - 2; $i ++)
+            {
+                /// 根据菜名获取到 id
+                $mName = $orderData[$i]['name'];
+                $mNumber = $orderData[$i]['number'];
+                // $sql1 = "select menuID from `menu` where menuName=$mName";
+                // $result1 = $conn->query($sql1);
+                $sql1 = "select menuID from `menu` where menuName=?";
+                $result1 = $conn->prepare($sql1);
+                $result1->bindValue(1, $mName);
+                $result1->execute();
+                // $res1 = $conn->fetchAll(PDO::FETCH_NUM);
+                $res1 = $result1->fetchAll(PDO::FETCH_NUM);
+                // print_r($res1[0][0]);
+                $menuID = $res1[0][0];
+                $menuFinish = 0;
+                // /// 插入订单详细
+                $sql2 = "insert into `orderdetail`(orderNumber, menuID, menuQuantity, menuFinish) values('$orderNumber', '$menuID', '$mNumber', '$menuFinish')";
+                $conn->query($sql2);
+            }
+            $conn->commit();
+            echo(json_encode(array("res"=>200, "orderNumber"=>$orderNumber)));
         }
-        $conn->commit();
-        echo(json_encode(array("res"=>200, "orderNumber"=>$orderNumber)));
+        else
+        {
+            echo(json_encode(array("res"=>550)));
+        }
     } catch (PDOException $e) {
         $conn->rollback();
         echo(json_encode(array("res"=>500)));
