@@ -33,7 +33,7 @@ if($flag == "getMenuCategory")
     $result = null;
     $conn = null;
 }
-
+// 获取菜品列表
 if($flag == "getMenus")
 {
     include("./conn.php");
@@ -46,6 +46,7 @@ if($flag == "getMenus")
     $conn = null;
 }
 
+/// 提交订单
 if($flag == "submitOrder")
 {
     include("./conn.php");
@@ -68,25 +69,8 @@ if($flag == "submitOrder")
                 $tableID = $val;
             }
         }
-        // print_r($value);
     }
 
-    // $orderFinish = 1;
-    // $orderNumber = "km".time();
-    // $orderTime = date('Y-m-d H:i:s', time());
-    // $sql = "insert into `order`(orderNumber, tableID, orderTime, orderPrice, orderFinish) values('?', '?', '?', '?', '?')";
-    // $result = $conn->prepare($sql);
-    // $result->bindValue(1, $orderNumber);
-    // $result->bindValue(2, $tableID);
-    // $result->bindValue(3, $orderTime);
-    // $result->bindValue(4, $orderTotal);
-    // $result->bindValue(5, $orderFinish);
-    // $result->execute();
-
-    // $sql = "insert into `order`(orderNumber, tableID, orderTime, orderPrice, orderFinish) values('$orderNumber', '$tableID', '$orderTime', '$orderTotal', '$orderFinish')";
-    // $conn->query($sql);
-
-    // echo $orderTotal;
     // 订单号
     $orderNumber = "km".time();
     // 订单时间
@@ -102,15 +86,6 @@ if($flag == "submitOrder")
         // 插入订单信息
         $sql = "insert into `order`(orderNumber, tableID, orderTime, orderPrice, orderFinish) values('$orderNumber', '$tableID', '$orderTime', $orderTotal, '$orderFinish')";
         $conn->query($sql);
-        // $sql = "insert into `order`(orderNumber, tableID, orderTime, orderPrice, orderFinish) values('?', '?', '?', '?', '?')";
-        // $result = $conn->prepare($sql);
-        // $result->bindValue(1, $orderNumber);
-        // $result->bindValue(2, $tableID);
-        // $result->bindValue(3, $orderTime);
-        // $result->bindValue(4, $orderTotal);
-        // $result->bindValue(5, $orderFinish);
-        // $result->execute();
-        // echo $result->lastInsertId();
         // 订单详细插入
         for($i = 0; $i < count($orderData) - 2; $i ++)
         {
@@ -131,22 +106,31 @@ if($flag == "submitOrder")
             // /// 插入订单详细
             $sql2 = "insert into `orderdetail`(orderNumber, menuID, menuQuantity, menuFinish) values('$orderNumber', '$menuID', '$mNumber', '$menuFinish')";
             $conn->query($sql2);
-            // $sql2 = "insert into `orderdetail`(orderNumber, menuID, menuQuantity, menuFinish) values('?', '?', '?', '?')";
-            // $result2 = $conn->prepare($sql2);
-            // $result2->bindValue(1, $orderNumber);
-            // $result2->bindValue(2, $menuID);
-            // $result2->bindValue(3, $mNumber);
-            // $result2->bindValue(4, $menuFinish);
-            // $result2->execute();
-            // $result1 = null;
-            // $result2 = null;
         }
         $conn->commit();
+        echo(json_encode(array("res"=>200, "orderNumber"=>$orderNumber)));
     } catch (PDOException $e) {
         $conn->rollback();
         echo(json_encode(array("res"=>500)));
     }
-    echo(json_encode(array("res"=>200)));
+    $result = null;
+    $conn = null;
+}
+// 获取详细订单
+if($flag == "getOrderDe")
+{
+    include("./conn.php");
+    try {
+        $orderNumber = $_POST["orderNumber"];
+        $sql = "select distinct `order`.tableID,`order`.orderNumber,`order`.orderTime,`order`.orderPrice,menu.menuName,orderdetail.menuQuantity,menu.menuPrice from `order`,orderdetail,menu where `order`.orderNumber=orderdetail.orderNumber and orderdetail.menuID=menu.menuID and order.orderNumber=?";
+        $result = $conn->prepare($sql);
+        $result->bindValue(1, $orderNumber);
+        $result->execute();
+        $res = $result->fetchAll(PDO::FETCH_NUM);
+        echo(json_encode(array("res"=>200, "r"=>$res)));
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
     $result = null;
     $conn = null;
 }

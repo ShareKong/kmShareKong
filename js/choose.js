@@ -146,7 +146,7 @@ function submitOrder(order)
         if(data["res"] == 200)
         {
             alert("下单成功");
-            window.location.href = "../index.html";
+            window.location.href = "./orderDe.html?" + data["orderNumber"];
         }
         else
         {
