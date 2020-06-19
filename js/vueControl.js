@@ -3,10 +3,10 @@ $(function(){
 function init() 
 { 
     getTableStatus();
-    const t_time = 5;
-    let getSever = setInterval(function(){
-        getTableStatus();
-    }, 1000 * t_time);
+    // const t_time = 5;
+    // let getSever = setInterval(function(){
+    //     getTableStatus();
+    // }, 1000 * t_time);
 }
 
 function getTableStatus()
