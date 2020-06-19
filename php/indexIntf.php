@@ -8,6 +8,8 @@ interface MenuIntf
     public function getMenus();
     // 根据菜名获取对应ID
     public function getMenuIdByName($menuName);
+    // 根据菜品类别获取对应的菜品
+    public function getMenuByCategoryName($menuCategoryName);
 }
 // 订单接口
 interface OrderIntf

@@ -50,6 +50,11 @@ switch ($flag) {
         $orderNumber = $_POST['orderNumber'];
         $order->finishOrder($orderNumber, $table);
         break;
+    // 根据菜品分类查找对应菜品
+    case 'getMenuByCategoryName':
+        $categoryName = $_POST['categoryName'];
+        $menu->getMenuByCategoryName($categoryName);
+        break;
     default:
         # code...
         break;

@@ -21,6 +21,7 @@ function getMenuCategory()
                 temp += "<li>"+menus[key][1]+"</li>";
             }
             menuC.html(temp);
+            menuCategoryClick()
         }
         else
         {
@@ -28,7 +29,44 @@ function getMenuCategory()
         }
     }, "json");
 }
-
+// 菜品导航点击
+function menuCategoryClick()
+{
+    $("#menuCategory li").each(function(){
+        $(this).click(function(){
+            if($(this).text() == "全部")
+            {
+                getMenus();
+            }
+            else
+            {
+                const categoryName = $(this).text();
+                const foodShow = $(".km-food-show");
+                $.post("../php/index.php", {
+                    "flag": "getMenuByCategoryName",
+                    "categoryName": categoryName
+                }, function (data) { 
+                    if(data["res"] == 200)
+                    {
+                        let menus = data["r"];
+                        let temp = "";
+                        for(let key in menus)
+                        {
+                            temp += '<div class="km-panel"><div class="km-panel-head"><img src="'+menus[key][3]+'" alt=""></div><div class="km-panel-body"><div class="km-panel-body-title" title="'+menus[key][1]+'">'+menus[key][1]+'</div><div class="km-panel-body-price">'+menus[key][2]+'</div><div class="km-panel-body-content">'+menus[key][4]+'</div></div><div class="km-panel-footer"><div><button class="btn btn-info">-</button><input type="text" value="0"><button class="btn btn-info">+</button></div><button class="btn btn-info">加入菜单</button></div></div>';
+                        }
+                        foodShow.html(temp);
+                    }
+                    else
+                    {
+                        alert("获取菜品失败");
+                    }
+                    getOrder();
+                }, "json");
+            }
+        });
+    });
+}
+// 获取菜品列表
 function getMenus()
 {
     const foodShow = $(".km-food-show");
@@ -52,7 +90,6 @@ function getMenus()
         getOrder();
     }, "json");
 }
-
 // 获取点菜的信息
 function getOrder()
 {
@@ -159,7 +196,7 @@ function submitOrder(order)
         }
     }, "json");
 }
-
+// 计算总价
 function sum(order)
 {
     // alert("order");

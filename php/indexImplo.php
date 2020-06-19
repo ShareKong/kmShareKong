@@ -22,16 +22,17 @@ class Table implements TableIntf
         include("./conn.php");
         $sql4 = "select tableEmpty from `table` where tableID=$tableID";
         $res4 = $conn->query($sql4);
-        $rs4 = $res4->fetch(PDO::FETCH_NUM);
+        // $rs4 = $res4->fetch(PDO::FETCH_NUM);
         // 如果查询到的结果为 1 ，则表示该餐桌可用
-        if($rs4[0])
-        {
-            return TRUE;
-        }
-        else
-        {
-            return FALSE;
-        }
+        // if($rs4[0])
+        // {
+        //     return TRUE;
+        // }
+        // else
+        // {
+        //     return FALSE;
+        // }
+        return TRUE;
         $res4 = null;
         $conn = null;
     }
@@ -114,6 +115,19 @@ class Menu implements MenuIntf
         $result1->execute();
         $res1 = $result1->fetchAll(PDO::FETCH_NUM);
         return $res1[0][0];
+    }
+    // 根据菜品类别获取对应的菜品
+    public function getMenuByCategoryName($menuCategoryName)
+    {
+        include("./conn.php");
+        $sql = "select menu.menuID,menu.menuName,menu.menuPrice,menu.menuPicture,menu.menuIntro from category,menu,menucategory where category.categoryID=menucategory.CategoryID and menucategory.menuID=menu.menuID and category=?;";
+        $result = $conn->prepare($sql);
+        $result->bindValue(1, $menuCategoryName);
+        $result->execute();
+        $res = $result->fetchAll(PDO::FETCH_NUM);
+        echo(json_encode(array("res"=>200, "r"=>$res)));
+        $result = null;
+        $conn = null;
     }
 }
 
