@@ -4,7 +4,7 @@ include("./indexIntf.php");
 // 餐桌类
 class Table implements TableIntf 
 {
-    // 获取餐桌状态
+    // 获取所有餐桌状态<是否可用>
     public function getTablesStatus()
     {
         include("./conn.php");
@@ -16,7 +16,7 @@ class Table implements TableIntf
         $result = null;
         $conn = null;
     }
-    // 获取指定餐桌状态
+    // 获取指定餐桌状态<是否可用>
     public function getTableStatusID($tableID)
     {
         include("./conn.php");
@@ -35,13 +35,31 @@ class Table implements TableIntf
         $res4 = null;
         $conn = null;
     }
-    // 改变指定餐桌状态
+    // 改变指定餐桌状态为不可用
     public function modifyTableStatusID($tableID)
     {
         include("./conn.php");
-        // $sql3 = "update `table` set tableEmpty=0 where tableID=$tableID";
-        // $conn->query($sql3);
         $sql3 = "update `table` set tableEmpty=0 where tableID=?";
+        $result = $conn->prepare($sql3);
+        $result->bindValue(1, $tableID);
+        $result->execute();
+        $ft = $result->rowCount();
+        if($ft)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+        $res = null;
+        $conn = null;
+    }
+    // 改变指定餐桌状态为可用
+    public function modifyTableStatusIDY($tableID)
+    {
+        include("./conn.php");
+        $sql3 = "update `table` set tableEmpty=1 where tableID=?";
         $result = $conn->prepare($sql3);
         $result->bindValue(1, $tableID);
         $result->execute();
@@ -185,6 +203,89 @@ class Order implements OrderIntf
             echo(json_encode(array("res"=>200, "r"=>$res)));
         } catch (\Throwable $th) {
             echo(json_encode(array("res"=>500)));
+        }
+        $result = null;
+        $conn = null;
+    }
+    // 获取未完成订单
+    public function getNotFinishOrder()
+    {
+        include("./conn.php");
+        try {
+            $sql = "select tableID,orderNumber,orderTime,orderPrice from `order` where orderFinish=0";
+            $result = $conn->prepare($sql);
+            $result->execute();
+            $res = $result->fetchAll(PDO::FETCH_NUM);
+            echo(json_encode(array("res"=>200, "r"=>$res)));
+        } catch (\Throwable $th) {
+            echo(json_encode(array("res"=>500)));
+        }
+        $result = null;
+        $conn = null;
+    }
+    // 获取历史订单
+    public function getHistoryOrder()
+    {
+        include("./conn.php");
+        try {
+            $sql = "select tableID,orderNumber,orderTime,orderPrice from `order` where orderFinish=1";
+            $result = $conn->prepare($sql);
+            $result->execute();
+            $res = $result->fetchAll(PDO::FETCH_NUM);
+            echo(json_encode(array("res"=>200, "r"=>$res)));
+        } catch (\Throwable $th) {
+            echo(json_encode(array("res"=>500)));
+        }
+        $result = null;
+        $conn = null;
+    }
+    // 完成订单
+    public function finishOrder($orderNumber, $table)
+    {
+        include("./conn.php");
+        $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, false);
+        try {
+            $conn->beginTransaction();
+            $sql = "update `order` set orderFinish=1 where orderNumber=?";
+            $result = $conn->prepare($sql);
+            $result->bindValue(1, $orderNumber);
+            $result->execute();
+            // 通过单号查找对应餐桌号
+            $tableID = $this->getTableIDByOrderNumber($orderNumber);
+            // 将订单号对应的餐桌变为可用
+            if($table->modifyTableStatusIDY($tableID))
+            {
+                $ft = $result->rowCount();
+                $conn->commit();
+                if($ft)
+                {
+                    echo(json_encode(array("res"=>200)));
+                }
+                else
+                {
+                    echo(json_encode(array("res"=>500)));
+                }
+            }
+        } catch (PDOException $e) {
+            $conn->rollback();
+            echo(json_encode(array("res"=>500)));
+        }
+        $result = null;
+        $conn = null;
+    }
+    // 通过单号查找对应餐桌号
+    public function getTableIDByOrderNumber($orderNumber)
+    {
+        include("./conn.php");
+        try {
+            $sql = "select tableID from `order` where orderNumber=?";
+            $result = $conn->prepare($sql);
+            $result->bindValue(1, $orderNumber);
+            $result->execute();
+            $res = $result->fetchAll(PDO::FETCH_NUM);
+            return $res[0][0];
+        } catch (\Throwable $th) {
+            return FALSE;
         }
         $result = null;
         $conn = null;

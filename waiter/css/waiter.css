@@ -1,0 +1,69 @@
+* {
+    /* border: 1px solid blue; */
+}
+
+body {
+    background-color: rgba(241,242,247, 1);
+}
+
+/* 头 */
+.km-head {
+    padding: 10px;
+    letter-spacing: 10px;
+    color: gray;
+    font-weight: 600;
+    font-size: 2em;
+    border-radius: 0 0 5px 5px;
+    text-align: center;
+    background-color: white;
+}
+
+.km-shadow {
+    box-shadow: 0 0 10px 2px #ccc;
+}
+
+.km-cont {
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+}
+
+/* 侧边导航 */
+.km-left-side {
+    width: 20%;
+    height: auto;
+    background: white;
+}
+
+.km-left-side h4 {
+    /* margin-top: 20px; */
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #aaa;
+    background-color: rgba(241,242,247, 1);
+}
+
+.km-left-side ul {
+    list-style: none;
+    text-align: right;
+    padding-right: 30px;
+}
+
+.km-left-side ul li {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.km-left-side ul li:hover {
+    cursor: pointer;
+    text-shadow: 20px 0 10px #FFB700, -20px 0 10px #FFB700;
+}
+
+/* 右边主要内容 */
+.km-right-side {
+    width: 78%;
+    height: 600px;
+    max-height: 600px;
+    background-color: white;
+    padding: 20px;
+}

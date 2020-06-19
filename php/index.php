@@ -37,6 +37,19 @@ switch ($flag) {
         $orderNumber = $_POST['orderNumber'];
         $order->getOrder($orderNumber);
         break;
+    // 获取未完成订单
+    case 'getNotFinishOrder':
+        $order->getNotFinishOrder();
+        break;
+    // 获取历史订单
+    case 'getHistoryOrder':
+        $order->getHistoryOrder();
+        break;
+    // 完成订单
+    case 'finishOrder':
+        $orderNumber = $_POST['orderNumber'];
+        $order->finishOrder($orderNumber, $table);
+        break;
     default:
         # code...
         break;
