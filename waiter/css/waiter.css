@@ -31,7 +31,7 @@ body {
 /* 侧边导航 */
 .km-left-side {
     width: 20%;
-    height: auto;
+    height: 560px;
     background: white;
 }
 
@@ -62,8 +62,8 @@ body {
 /* 右边主要内容 */
 .km-right-side {
     width: 78%;
-    height: 600px;
-    max-height: 600px;
+    /* height: 600px; */
+    /* max-height: 600px; */
     background-color: white;
     padding: 20px;
 }

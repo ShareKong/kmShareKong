@@ -10,9 +10,10 @@ else if(isset($_POST['flag']))
     $flag = $_POST['flag'];
 }
 
-$table = new Table();
-$menu = new Menu();
-$order = new Order();
+$db = new Database();
+$table = new Table($db);
+$menu = new Menu($db);
+$order = new Order($db, $table, $menu);
 
 switch ($flag) {
     // 获取餐桌状态
@@ -30,7 +31,7 @@ switch ($flag) {
     /// 提交订单
     case 'submitOrder':
         $orderData = $_POST['order'];
-        $order->createOrder($orderData, $table, $menu);
+        $order->createOrder($orderData);
         break;
     // 获取订单
     case 'getOrderDe':
@@ -48,7 +49,7 @@ switch ($flag) {
     // 完成订单
     case 'finishOrder':
         $orderNumber = $_POST['orderNumber'];
-        $order->finishOrder($orderNumber, $table);
+        $order->finishOrder($orderNumber);
         break;
     // 根据菜品分类查找对应菜品
     case 'getMenuByCategoryName':

@@ -71,7 +71,6 @@ function tableBtnClick()
                 getNotFinishOrder();
             }
         }, "json");
-        alert(orderNumber);
     });
     // 订单详情按钮
     $(".km-right-side tbody tr td:last-child button:last-child").click(function(){
