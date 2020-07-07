@@ -27,9 +27,6 @@ ul>li:hover {
 }
 
 /* 左侧栏 */
-.km-side {
-    /* height: 722px; */
-}
 
 .km-side ul li img {
     width: 50px;
@@ -106,6 +103,6 @@ h5 {
 }
 
 /* 菜品管理 */
-.km-dishesv>div {
+/* .km-dishesv>div { */
     /* width: 100%; */
-}
+/* } */
