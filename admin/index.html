@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="../node_modules/qrcode/jquery.qrcode.min.js"></script>
     <script src="../node_modules/vue/dist/vue.js"></script>
     <link rel="shortcut icon" href="./images/logo/favicon.ico">
     <link rel="stylesheet" href="./css/index.css">
@@ -83,27 +82,40 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 横向导航 -->
-                    <h-nav></h-nav>
-                    <!-- 详细内容 -->
-                    <div class="col-md-12 km-bg-white pt-3 pl-3 pr-3 pb-3 km-boxShadow-m-grey">
-                        <!-- 员工 -->
-                        <div class="emps">
-                            <h2 class="text-center">员工管理</h2>
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>序号</th>
-                                        <th>姓名</th>
-                                        <th>账号</th>
-                                        <th>密码</th>
-                                        <th>权限</th>
-                                        <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                    <!-- 员工管理 -->
+                    <div class="km-cont km-cont-1 d-none">
+                        <!-- 横向导航 -->
+                        <h-nav></h-nav>
+                        <!-- 详细内容 -->
+                        <div class="col-md-12 km-bg-white pt-3 pl-3 pr-3 pb-3 km-boxShadow-m-grey">
+                            <!-- 员工 -->
+                            <div class="emps">
+                                <h2 class="text-center">员工管理</h2>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>姓名</th>
+                                            <th>账号</th>
+                                            <th>密码</th>
+                                            <th>权限</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 菜品管理 -->
+                    <div class="col-md-12 km-cont p-0 km-cont2">
+                        <div class="p-0 km-dishes">
+                            <!-- 添加菜品 -->
+                            <div class="km-bg-white p-3 km-boxShadow-m-grey">
+                                
+                            </div>
+                            <!-- 菜品列表 -->
                         </div>
                     </div>
                 </div>
@@ -123,8 +135,8 @@
             <div class="add">
                 <adds ref="adds" :key="timer" v-show="isAddsShow"></adds>
             </div>
-            <div class="text-center" v-show="isAddsShow">
-                <button class="btn btn-success" @click="getChild()">添加</button>
+            <div class="text-center km-jquery-transtionToggle" v-if="isAddsShow">
+                <button class="btn btn-success" @click="getChild()" v-if="isAddsShow">添加</button>
             </div>
         </div>
     </template>

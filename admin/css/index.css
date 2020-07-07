@@ -76,6 +76,10 @@ h5 {
     color: black;
 }
 
+.km-cont-1 {
+    width: 100%;
+}
+
 .km-content .km-head {
     background-color: white;
 }
@@ -99,4 +103,9 @@ h5 {
 
 .d-flex .form-group {
     margin-right: 20px;
+}
+
+/* 菜品管理 */
+.km-dishesv>div {
+    /* width: 100%; */
 }

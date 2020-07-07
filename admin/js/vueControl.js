@@ -1,5 +1,6 @@
 $(function(){
-function init() { 
+// 初始化
+function init() {
     $.post("./php/index.php",{
         "flag": "indexStart"
     },function(data){
@@ -13,7 +14,7 @@ function init() {
         }
     }, "json");
 }
-    // 设置左侧栏高度
+// 设置左侧栏高度
 function setSideHeight()
 {
     // const bodyHeight = $("body").height();
@@ -33,7 +34,6 @@ function setSideHeight()
     //     }
     //  })
 }
-
 // vue 管理
 function vues()
 {
@@ -102,6 +102,7 @@ function vues()
                     },
                     changeAddsShow () {
                         this.isAddsShow = !this.isAddsShow;
+                        // $(".km-jquery-transtionToggle").slideToggle(500);
                         // alert(isAddsShow);
                     } 
                 }                
@@ -109,7 +110,7 @@ function vues()
         }
     });
 }
-// 
+// 获取员工列表
 function getEmplos() {
     $.post("./php/index.php",{
         "flag": "getEmplos"
@@ -214,12 +215,14 @@ function modifyPwdBtn()
         }
     });
 }
-// 
+// 头部导航
 function head() { 
+    // 修改密码按钮效果
     $("#modigyPwdBtnStart").click(function () { 
         // alert(1);
-        $("#modigyPwd").show(500);
+        $("#modigyPwd").slideToggle(500);
     });
+    // 退出登陆
     $("#loginOut").click(function () {
         $.post("./php/index.php",{
             "flag": "loginOut"
@@ -236,6 +239,21 @@ function head() {
     });
 
  }
+//  功能选项效果
+function leftFuns()
+{
+    let lFuns = $(".km-side-function ul.nav li");
+    let conts = $(".km-content .km-cont");
+    lFuns.each(function(){
+        $(this).click(function(){
+            console.log($(this).index());
+            conts.hide(500);
+            conts.eq($(this).index()).show(500);
+
+        });
+    });
+    // alert(lFuns.length);
+}
 // 
 function all()
 {
@@ -245,6 +263,7 @@ function all()
     setSideHeight();
     modifyPwdBtn();
     head();
+    leftFuns();
 }
 all();
 

@@ -4,6 +4,7 @@ if(isset($_GET['flag']))
 else if(isset($_POST['flag']))
     $flag = $_POST['flag'];
 
+    // 检测是否登陆
 if($flag == "indexStart")
 {
     session_start();
@@ -24,7 +25,7 @@ if($flag == "indexStart")
         echo(json_encode(array("res"=>500)));
     }
 }
-
+// 添加员工
 if($flag == "addEmplo")
 {
     include("conn.php");
@@ -64,7 +65,7 @@ if($flag == "addEmplo")
     $result = null;
     $conn = null;
 }
-
+// 获取员工列表
 if($flag == "getEmplos")
 {
     include("conn.php");
@@ -76,7 +77,7 @@ if($flag == "getEmplos")
     $result = null;
     $conn = null;
 }
-
+// 删除指定员工
 if($flag == "delEmploId")
 {
     include("conn.php");
@@ -97,7 +98,7 @@ if($flag == "delEmploId")
     $result = null;
     $conn = null;
 }
-
+// 修改密码
 if($flag == "modifyPwd")
 {
     include("conn.php");
@@ -145,7 +146,7 @@ if($flag == "modifyPwd")
     }
     $conn = null;
 }
-
+// 登陆
 if($flag == "login")
 {
     include("conn.php");
@@ -170,7 +171,7 @@ if($flag == "login")
     $result = null;
     $conn = null;
 }
-
+// 退出登陆
 if($flag == "loginOut")
 {
     session_start();
