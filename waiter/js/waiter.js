@@ -78,10 +78,26 @@ function tableBtnClick()
         window.location.href = "../html/orderDe.html?" + orderNumber;
     });
 }
+// 判断用户是否登录
+function isLogin()
+{
+    $.post("./php/waiter.php", {
+        "flag" : "isLogin"
+    }, function(data){
+        if(data["status"] != 200)
+        {
+            window.location.href = "index.html";
+        }
+        else
+        {
+            init();
+        }
+    }, "json");
+}
 
 function all()
 {
-    init();
+    isLogin();
 }
 all();
 })
