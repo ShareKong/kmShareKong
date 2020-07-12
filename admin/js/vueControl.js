@@ -249,10 +249,125 @@ function leftFuns()
             console.log($(this).index());
             conts.hide(500);
             conts.eq($(this).index()).show(500);
-
         });
     });
     // alert(lFuns.length);
+}
+// 获取菜品列表
+function getMenus()
+{
+    $.post("./php/index.php",{
+        "flag": "getMenus"
+    }, function(data){
+        if(data["status"] == 200)
+        {
+            let tMenusDe = data["res"];
+            let tMenusCa = data["res1"];
+            let temp = "";
+            for(let i = 0; i < tMenusDe.length; i++)
+            {
+                temp += '<tr><td>'+tMenusDe[i][0]+'</td><td><img src="'+tMenusDe[i][3]+'" alt=""></td><td>'+tMenusDe[i][1]+'</td><td>'+tMenusDe[i][2]+'</td><td>';
+                for(let j = 0; j < tMenusCa.length; j++)
+                {
+                    if(Number(tMenusCa[j][0]) > tMenusDe[i][0])
+                    {
+                        break;
+                    }
+                    else if(Number(tMenusCa[j][0]) == tMenusDe[i][0])
+                    {
+                        temp += '<span class="badge badge-pill badge-success">'+tMenusCa[j][1]+'</span>';
+                    }
+                }
+                temp += '</td><td>'+tMenusDe[i][4]+'</td><td><button class="btn btn-danger btn-sm">移除</button></td></tr>';
+            }
+            $(".km-dishes tbody").html(temp);
+            // 菜品总数
+            $("#menuTotal").text(tMenusDe.length);
+        }
+        else if(data["status"] == 500)
+        {
+            console.log("获取菜品列表失败");
+        }
+    }, "json");
+}
+// 菜品管理效果
+function menuEff()
+{
+    $("#addMenu").click(function(){
+        console.log("addMenu");
+        $("#addMenuS").slideToggle(500);
+    });
+}
+// 获取菜品分类列表
+function getMenuCate()
+{
+    $.post("./php/index.php",{
+        "flag" : "getMenuCate"
+    }, function(data){
+        if(data["status"] == 200)
+        {
+            const r = data["res"];
+            let temp = "";
+            for(let i = 0; i < r.length; i++)
+            {
+                temp += '<tr><td>'+r[i][0]+'</td><td>'+r[i][1]+'</td><td><button class="btn btn-danger btn-sm">移除</button></td></tr>';
+            }
+            $("#menuCate tbody").html(temp);
+            // 显示分类列表总数
+            $("#menuCategoryTotal").text(r.length);
+            deleteMenuCate();
+        }
+        else if(data["status"] == 500)
+        {
+            console.log("获取菜品分类列表失败");
+        }
+    }, "json");
+}
+// 添加菜品分类
+function addMenuCate()
+{
+    $("#addMenuCate").click(function(){
+        let menuCateName = $("#addMenuCateName").val();
+        $.post("./php/index.php", {
+            "flag" : "addMenuCate",
+            "data" : menuCateName
+        }, function(data){
+            if(data["status"] == 200)
+            {
+                alert("添加分类列表成功");
+                $("#addMenuCateName").val("");
+                getMenuCate();
+            }
+            else
+            {
+                alert("添加分类列表失败");
+            }
+        }, "json");
+        // console.log(menuCateName);
+    });
+}
+// 删除菜品分类
+function deleteMenuCate()
+{
+    const menuCateList = $("#menuCate tbody tr td button");
+    menuCateList.click(function(){
+        let cateID = $(this).parents("tr").find("td:first-child").text();
+        $.post("./php/index.php", {
+            "flag" : "deleteMenuCate",
+            "data" : cateID
+        }, function(data){
+            if(data["status"] == 200)
+            {
+                alert("已删除编号为" + cateID + "的分类");
+                getMenuCate();
+            }
+            else
+            {
+                alert("删除分类失败");
+            }
+        }, "json");
+        // console.log(cateID);
+    });
 }
 // 
 function all()
@@ -263,7 +378,11 @@ function all()
     setSideHeight();
     modifyPwdBtn();
     head();
-    leftFuns();
+    leftFuns(); 
+    getMenus();
+    menuEff();
+    getMenuCate();
+    addMenuCate();
 }
 all();
 

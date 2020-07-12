@@ -182,4 +182,110 @@ if($flag == "loginOut")
     session_destroy();
     echo(json_encode(array("res"=>200)));
 }
+// 获取菜品分类列表
+if($flag == "getMenuCategory")
+{
+    try {
+        include("conn.php");
+        $sql = "select * from category";
+        $result = $conn->prepare($sql);
+        $result->execute();
+        $res = $result->fetchAll(PDO::FETCH_NUM);
+        echo(json_encode(array("status"=>200, "res"=>$res)));
+        $conn = null;
+        $result = null;
+    } catch(PDOException $e) {
+        echo(json_encode(array("status"=>500)));
+    }
+}
+// 获取菜品列表
+if($flag == "getMenus")
+{
+    try {
+        include("conn.php");
+        // 读取菜品信息
+        $sql = "select * from `menu`";
+        $result = $conn->prepare($sql);
+        $result->execute();
+        $res = $result->fetchAll(PDO::FETCH_NUM);
+        // 读取菜品对应的菜品类别
+        $sql1 = "select menu.menuID,category.category from `menu`,`category`,`menucategory` where menu.menuID=menucategory.menuID and menucategory.CategoryID=category.categoryID";
+        $result1 = $conn->prepare($sql1);
+        $result1->execute();
+        $res1 = $result1->fetchAll(PDO::FETCH_NUM);
+        echo(json_encode(array("status"=>200, "res"=>$res, "res1"=>$res1)));
+        $conn = null;
+        $result = null;
+        $result1 = null;
+    } catch(PDOException $e) {
+        echo(json_encode(array("status"=>500)));
+    }
+}
+// 获取菜品分类列表
+if($flag == "getMenuCate")
+{
+    try {
+        include("conn.php");
+        $sql = "select * from `category`";
+        $result = $conn->prepare($sql);
+        $result->execute();
+        $res = $result->fetchAll(PDO::FETCH_NUM);
+        echo(json_encode(array("status"=>200, "res"=>$res)));
+        $conn = null;
+        $result = null;
+    } catch(PDOException $e) {
+        echo(json_encode(array("status"=>500)));
+    }
+}
+// 添加菜品分类
+if($flag == "addMenuCate")
+{
+    $menuCateName = $_POST["data"];
+
+    try {
+        include("conn.php");
+        $sql = "insert into `category`(category) values(?)";
+        $result = $conn->prepare($sql);
+        $result->bindValue(1, $menuCateName);
+        $result->execute();
+        $ft = $conn->lastInsertId();
+        if($ft)
+        {
+            echo(json_encode(array("status"=>200)));
+        }
+        else
+        {
+            echo(json_encode(array("status"=>500)));
+        }
+        $conn = null;
+        $result = null;
+    } catch(PDOException $e) {
+        echo(json_encode(array("status"=>500)));
+    }
+}
+// 删除菜品分类
+if($flag == "deleteMenuCate")
+{
+    $cateID = $_POST["data"];
+    try {
+        include("conn.php");
+        $sql = "delete from `category` where categoryID=?";
+        $result = $conn->prepare($sql);
+        $result->bindValue(1, $cateID);
+        $result->execute();
+        $ft = $result->rowCount();
+        if($ft)
+        {
+            echo(json_encode(array("status"=>200)));
+        }
+        else
+        {
+            echo(json_encode(array("status"=>500)));
+        }
+        $conn = null;
+        $result = null;
+    } catch(PDOException $e) {
+        echo(json_encode(array("status"=>500)));
+    }
+}
 ?>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title></title>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <form action="./php/addMenu.php" method="POST" enctype="multipart/form-data" class="col-md-12 d-flex">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="">菜名：</label>
+                    <input type="text" name="menuName" class="form-control" placeholder="请输入菜名" required>
+                </div>
+                <div class="form-group">
+                    <label for="">图片：</label>
+                    <input type="file" name="menuFile" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">种类：(可选多个)</label>
+                    <select name="menuCategory" id="menuCategory" class="form-control" multiple required title="可以选择多个种类">
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-5 offset-1">
+                <div class="form-group">
+                    <label for="">价格：</label>
+                    <input type="number" name="menuPrice" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">菜品介绍：</label>
+                    <textarea name="menuIntro" id="menuIntro" cols="30" rows="5" class="form-control" required placeholder="请用简易语言说明菜品"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit" id="addMenu">添加</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        // 获取分类列表
+        function getMenuCategory()
+        {
+            $.post("./php/index.php",{
+                "flag": "getMenuCategory"
+            }, function(data){
+                if(data["status"] == 200)
+                {
+                    let res = data["res"];
+                    let temp = "";
+                    for(let i = 0; i < res.length; i++)
+                    {
+                        temp += '<option value="'+res[i][0]+'">'+res[i][1]+'</option>';
+                    }
+                    $("#menuCategory").html(temp);
+                }
+                else if(data["status"] == 500)
+                {
+                    console.log("获取菜品分类列表失败");
+                }
+            }, "json");
+        }
+        getMenuCategory();
+    </script>
+</body>
+</html>
